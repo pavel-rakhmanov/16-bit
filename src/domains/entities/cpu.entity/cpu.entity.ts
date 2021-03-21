@@ -1,7 +1,7 @@
-import { Register } from '../constants/register';
-import { Instruction, InstructionSize } from '../constants/instruction';
+import { Register } from '../../constants/register.constant';
+import { Instruction, InstructionSize } from '../../constants/instruction.constant';
 
-import { MemoryEntity } from './memory.entity';
+import { MemoryEntity } from '../memory.entity';
 
 export class CPUEntity {
   constructor(private readonly _memory: MemoryEntity) {
@@ -53,10 +53,7 @@ export class CPUEntity {
       Register.InstructionPointer
     );
     const instruction = this.memory.getUint8(nextInstructionAddress);
-    this.setRegister(
-      Register.InstructionPointer,
-      nextInstructionAddress + 1
-    );
+    this.setRegister(Register.InstructionPointer, nextInstructionAddress + 1);
 
     return instruction;
   }
@@ -66,10 +63,7 @@ export class CPUEntity {
       Register.InstructionPointer
     );
     const instruction = this.memory.getUint16(nextInstructionAddress);
-    this.setRegister(
-      Register.InstructionPointer,
-      nextInstructionAddress + 2
-    );
+    this.setRegister(Register.InstructionPointer, nextInstructionAddress + 2);
 
     return instruction;
   }
@@ -104,9 +98,27 @@ export class CPUEntity {
     }
   }
 
-  private step() {
+  private takeRegistersSnapshot(): { register: Register; value: string }[] {
+    return this.registers.map((register) => ({
+      register,
+      value: `0x${this.getRegister(register)
+        .toString(InstructionSize * 8)
+        .padStart(4, '0')}`,
+    }));
+  }
+
+  public step(): void {
     const instruction = this.fetch8();
 
     return this.execute(instruction);
+  }
+
+  public debug(metaData?: unknown): void {
+    if (metaData) {
+      // eslint-disable-next-line no-console
+      console.log(`meta: ${JSON.stringify(metaData)}`);
+    }
+    // eslint-disable-next-line no-console
+    console.table(this.takeRegistersSnapshot());
   }
 }

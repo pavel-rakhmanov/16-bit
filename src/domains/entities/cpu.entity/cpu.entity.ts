@@ -10,7 +10,13 @@ export class CPUEntity {
   constructor(private readonly _memory: MemoryEntity) {
     this.memory = _memory;
 
-    this.registers = Object.values(Register);
+    this.registers = Object.values(Register).reduce((acc: Register[], value) => {
+      if (typeof value !== 'string') {
+        acc.push(value);
+      }
+
+      return acc;
+    }, []);
 
     this.registersMemory = new MemoryEntity(
       this.registers.length * InstructionSize
@@ -31,7 +37,7 @@ export class CPUEntity {
 
   private readonly registersMemory: MemoryEntity;
 
-  private getRegister(register: Register): number {
+  getRegister(register: Register): number {
     const registerIndexInMemory = this.registersMap.get(register);
 
     if (registerIndexInMemory === undefined) {
@@ -53,37 +59,56 @@ export class CPUEntity {
 
   private fetch8() {
     const nextInstructionAddress = this.getRegister(
-      Register.InstructionPointer
+      Register.IP
     );
     const instruction = this.memory.getUint8(nextInstructionAddress);
-    this.setRegister(Register.InstructionPointer, nextInstructionAddress + 1);
+    this.setRegister(Register.IP, nextInstructionAddress + 1);
 
     return instruction;
   }
 
   private fetch16() {
     const nextInstructionAddress = this.getRegister(
-      Register.InstructionPointer
+      Register.IP
     );
     const instruction = this.memory.getUint16(nextInstructionAddress);
-    this.setRegister(Register.InstructionPointer, nextInstructionAddress + 2);
+    this.setRegister(Register.IP, nextInstructionAddress + 2);
 
     return instruction;
   }
 
   private execute(instruction: number) {
     switch (instruction) {
-      case Instruction.MOV_LIT_R1: {
-        const literalValue = this.fetch16();
-        this.setRegister(Register.R1, literalValue);
+      case Instruction.MOV_LIT_REG: {
+        const value = this.fetch16();
+        const register = (this.fetch8() % this.registers.length) * 2;
 
-        break;
+        this.registersMemory.setUint16(register, value);
+        return;
       }
-      case Instruction.MOV_LIT_R2: {
-        const literalValue = this.fetch16();
-        this.setRegister(Register.R2, literalValue);
+      case Instruction.MOV_REG_REG: {
+        const registerFrom = (this.fetch8() % this.registers.length) * 2;
+        const registerTo = (this.fetch8() % this.registers.length) * 2;
+        const value = this.registersMemory.getUint16(registerFrom);
 
-        break;
+        this.registersMemory.setUint16(registerTo, value);
+        return;
+      }
+      case Instruction.MOV_REG_MEM: {
+        const registerFrom = (this.fetch8() % this.registers.length) * 2;
+        const address = this.fetch16();
+        const value = this.registersMemory.getUint16(registerFrom);
+
+        this.memory.setUint16(address, value);
+        return;
+      }
+      case Instruction.MOV_MEM_REG: {
+        const address = this.fetch16();
+        const registerTo = (this.fetch8() % this.registers.length) * 2;
+        const value = this.registersMemory.getUint16(address);
+
+        this.registersMemory.setUint16(registerTo, value);
+        return;
       }
       case Instruction.ADD_REG_REG: {
         const r1 = this.fetch8();
@@ -91,7 +116,7 @@ export class CPUEntity {
         const r1Value = this.registersMemory.getUint16(r1 * InstructionSize);
         const r2Value = this.registersMemory.getUint16(r2 * InstructionSize);
 
-        this.setRegister(Register.Accumulator, r1Value + r2Value);
+        this.setRegister(Register.ACC, r1Value + r2Value);
 
         break;
       }
@@ -101,9 +126,9 @@ export class CPUEntity {
     }
   }
 
-  private takeRegistersSnapshot(): { register: Register; value: string }[] {
+  private takeRegistersSnapshot(): { register: string; value: string }[] {
     return this.registers.map((register) => ({
-      register,
+      register: Register[register],
       value: `0x${this.getRegister(register)
         .toString(InstructionSize * 8)
         .padStart(4, '0')}`,
@@ -123,5 +148,15 @@ export class CPUEntity {
     }
     // eslint-disable-next-line no-console
     console.table(this.takeRegistersSnapshot());
+  }
+
+  public viewMemoryAt(address: number): void {
+    const next8Bytes = Array.from({ length: 8 }).map((_, index) => {
+      const value = this.memory.getUint8(address + index);
+      return `0x${value.toString(16).padStart(2, '0')}`
+    });
+    
+    // eslint-disable-next-line no-console
+    console.log(`0x${address.toString(16).padStart(4, '0')}: ${next8Bytes.join(' ')}`)
   }
 }

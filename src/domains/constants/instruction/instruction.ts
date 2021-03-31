@@ -1,5 +1,3 @@
-export const InstructionSize = 2;
-
 export enum Instruction {
   MOV_LIT_R1 = 0x10,
   MOV_LIT_R2 = 0x11,

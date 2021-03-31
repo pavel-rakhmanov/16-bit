@@ -1,8 +1,8 @@
-import { Register } from '../../constants/register.constant';
 import {
+  Register,
   Instruction,
   InstructionSize,
-} from '../../constants/instruction.constant';
+} from '../../constants';
 
 import { MemoryEntity } from '../memory.entity';
 

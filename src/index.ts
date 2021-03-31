@@ -1,36 +1,18 @@
-import { Instruction, Register } from './domains/constants';
+import { Register } from './domains/constants';
 import { CPUEntity } from './domains/entities/cpu.entity';
-import { MemoryEntity } from './domains/entities/memory.entity';
 
-const memory = new MemoryEntity(256*256);
-const writableBytes = new Uint8Array(memory.buffer);
+import propgramm from './programm';
 
-let i = 0;
+const cpu = new CPUEntity(propgramm);
 
-writableBytes[i += 1] = Instruction.MOV_LIT_REG;
-writableBytes[i += 1] = 0x12;
-writableBytes[i += 1] = 0x34;
-writableBytes[i += 1] = Register.R1;
+console.log(`- [initial] step --------------------------------`)
 
-writableBytes[i += 1] = Instruction.MOV_LIT_REG;
-writableBytes[i += 1] = 0xab;
-writableBytes[i += 1] = 0xcd;
-writableBytes[i += 1] = Register.R2;
+cpu.debug();
+cpu.viewMemoryAt(cpu.getRegister(Register.IP))
+cpu.viewMemoryAt(0x0100);
 
-writableBytes[i += 1] = Instruction.ADD_REG_REG;
-writableBytes[i += 1] = Register.R1;
-writableBytes[i += 1] = Register.R2;
-
-writableBytes[i += 1] = Instruction.MOV_REG_MEM;
-writableBytes[i += 1] = Register.ACC;
-writableBytes[i += 1] = 0x01;
-writableBytes[i += 1] = 0x00;
-
-const cpu = new CPUEntity(memory);
-
-
-for (let a = 0; a < i; a += 1) {
-  console.log(`- [${a + 1}] tick -----------------------------------`)
+for (let i = 0; i < 20; i += 1) {
+  console.log(`- [${i + 1}] step ------------------------------------`)
 
   cpu.step();
   cpu.debug();

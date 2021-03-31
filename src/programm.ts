@@ -3,7 +3,7 @@
 import { MemoryEntity } from 'domains/entities/memory.entity';
 import { Instruction, Register } from 'domains/constants';
 
-const memory = new MemoryEntity(256*256);
+const memory = new MemoryEntity(256 * 256);
 const writableBytes = new Uint8Array(memory.buffer);
 
 let i = 0;

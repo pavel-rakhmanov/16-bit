@@ -7,6 +7,10 @@ describe('Register enum', () => {
   });
 
   test('values should be uniq', () => {
-    expect(Object.values(Register).every((value, index, arr) => arr.indexOf(value) === index)).toBe(true);
+    expect(
+      Object.values(Register).every(
+        (value, index, arr) => arr.indexOf(value) === index
+      )
+    ).toBe(true);
   });
 });

@@ -1,8 +1,4 @@
-import {
-  Register,
-  Instruction,
-  InstructionSize,
-} from 'domains/constants';
+import { Register, Instruction, InstructionSize } from 'domains/constants';
 
 import { MemoryEntity } from 'domains/entities/memory.entity';
 
@@ -10,13 +6,16 @@ export class CPUEntity {
   constructor(private readonly _memory: MemoryEntity) {
     this.memory = _memory;
 
-    this.registers = Object.values(Register).reduce((acc: Register[], value) => {
-      if (typeof value !== 'string') {
-        acc.push(value);
-      }
+    this.registers = Object.values(Register).reduce(
+      (acc: Register[], value) => {
+        if (typeof value !== 'string') {
+          acc.push(value);
+        }
 
-      return acc;
-    }, []);
+        return acc;
+      },
+      []
+    );
 
     this.registersMemory = new MemoryEntity(
       this.registers.length * InstructionSize
@@ -58,9 +57,7 @@ export class CPUEntity {
   }
 
   private fetch8() {
-    const nextInstructionAddress = this.getRegister(
-      Register.IP
-    );
+    const nextInstructionAddress = this.getRegister(Register.IP);
     const instruction = this.memory.getUint8(nextInstructionAddress);
     this.setRegister(Register.IP, nextInstructionAddress + 1);
 
@@ -68,9 +65,7 @@ export class CPUEntity {
   }
 
   private fetch16() {
-    const nextInstructionAddress = this.getRegister(
-      Register.IP
-    );
+    const nextInstructionAddress = this.getRegister(Register.IP);
     const instruction = this.memory.getUint16(nextInstructionAddress);
     this.setRegister(Register.IP, nextInstructionAddress + 2);
 
@@ -129,7 +124,7 @@ export class CPUEntity {
         const address = this.fetch16();
 
         if (value !== this.getRegister(Register.ACC)) {
-          this.setRegister(Register.IP, address)
+          this.setRegister(Register.IP, address);
         }
 
         break;
@@ -167,10 +162,12 @@ export class CPUEntity {
   public viewMemoryAt(address: number): void {
     const next8Bytes = Array.from({ length: 8 }).map((_, index) => {
       const value = this.memory.getUint8(address + index);
-      return `0x${value.toString(16).padStart(2, '0')}`
+      return `0x${value.toString(16).padStart(2, '0')}`;
     });
-    
+
     // eslint-disable-next-line no-console
-    console.log(`0x${address.toString(16).padStart(4, '0')}: ${next8Bytes.join(' ')}`)
+    console.log(
+      `0x${address.toString(16).padStart(4, '0')}: ${next8Bytes.join(' ')}`
+    );
   }
 }

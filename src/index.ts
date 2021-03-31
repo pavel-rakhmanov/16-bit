@@ -10,16 +10,16 @@ const cpu = new CPUEntity(propgramm);
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 cpu.debug();
-cpu.viewMemoryAt(cpu.getRegister(Register.IP))
+cpu.viewMemoryAt(cpu.getRegister(Register.IP));
 cpu.viewMemoryAt(0x0100);
 
 rl.on('line', () => {
   cpu.step();
   cpu.debug();
-  cpu.viewMemoryAt(cpu.getRegister(Register.IP))
+  cpu.viewMemoryAt(cpu.getRegister(Register.IP));
   cpu.viewMemoryAt(0x0100);
-})
+});

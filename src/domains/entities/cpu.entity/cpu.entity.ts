@@ -84,7 +84,8 @@ export class CPUEntity {
         const register = (this.fetch8() % this.registers.length) * 2;
 
         this.registersMemory.setUint16(register, value);
-        return;
+
+        break;
       }
       case Instruction.MOV_REG_REG: {
         const registerFrom = (this.fetch8() % this.registers.length) * 2;
@@ -92,7 +93,8 @@ export class CPUEntity {
         const value = this.registersMemory.getUint16(registerFrom);
 
         this.registersMemory.setUint16(registerTo, value);
-        return;
+
+        break;
       }
       case Instruction.MOV_REG_MEM: {
         const registerFrom = (this.fetch8() % this.registers.length) * 2;
@@ -100,7 +102,8 @@ export class CPUEntity {
         const value = this.registersMemory.getUint16(registerFrom);
 
         this.memory.setUint16(address, value);
-        return;
+
+        break;
       }
       case Instruction.MOV_MEM_REG: {
         const address = this.fetch16();
@@ -108,7 +111,8 @@ export class CPUEntity {
         const value = this.registersMemory.getUint16(address);
 
         this.registersMemory.setUint16(registerTo, value);
-        return;
+
+        break;
       }
       case Instruction.ADD_REG_REG: {
         const r1 = this.fetch8();
@@ -117,6 +121,16 @@ export class CPUEntity {
         const r2Value = this.registersMemory.getUint16(r2 * InstructionSize);
 
         this.setRegister(Register.ACC, r1Value + r2Value);
+
+        break;
+      }
+      case Instruction.JMP_NOT_EQ: {
+        const value = this.fetch16();
+        const address = this.fetch16();
+
+        if (value !== this.getRegister(Register.IP)) {
+          this.setRegister(Register.IP, address)
+        }
 
         break;
       }

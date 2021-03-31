@@ -47,7 +47,7 @@ export class CPUEntity {
     return this.registersMemory.getUint16(registerIndexInMemory);
   }
 
-  private setRegister(register: Register, value: number): void {
+  setRegister(register: Register, value: number): void {
     const registerIndexInMemory = this.registersMap.get(register);
 
     if (registerIndexInMemory === undefined) {

@@ -8,7 +8,8 @@
     "lib": [],
     "paths": {
       "src/*": ["./src/*"],
-      "domains/*": ["./src/domains/*"]
+      "domains/*": ["./src/domains/*"],
+      "utils/*": ["./src/utils/*"]
     },
     "outDir": "./dist",
     "baseUrl": "./",

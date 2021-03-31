@@ -1,5 +1,5 @@
-import { Register } from './domains/constants';
-import { CPUEntity } from './domains/entities/cpu.entity';
+import { Register } from 'domains/constants';
+import { CPUEntity } from 'domains/entities/cpu.entity';
 
 import propgramm from './programm';
 

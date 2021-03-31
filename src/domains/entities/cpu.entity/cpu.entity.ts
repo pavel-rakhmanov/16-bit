@@ -2,9 +2,9 @@ import {
   Register,
   Instruction,
   InstructionSize,
-} from '../../constants';
+} from 'domains/constants';
 
-import { MemoryEntity } from '../memory.entity';
+import { MemoryEntity } from 'domains/entities/memory.entity';
 
 export class CPUEntity {
   constructor(private readonly _memory: MemoryEntity) {

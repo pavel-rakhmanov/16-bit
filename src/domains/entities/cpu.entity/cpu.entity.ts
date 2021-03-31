@@ -108,7 +108,7 @@ export class CPUEntity {
       case Instruction.MOV_MEM_REG: {
         const address = this.fetch16();
         const registerTo = (this.fetch8() % this.registers.length) * 2;
-        const value = this.registersMemory.getUint16(address);
+        const value = this.memory.getUint16(address);
 
         this.registersMemory.setUint16(registerTo, value);
 
@@ -128,7 +128,7 @@ export class CPUEntity {
         const value = this.fetch16();
         const address = this.fetch16();
 
-        if (value !== this.getRegister(Register.IP)) {
+        if (value !== this.getRegister(Register.ACC)) {
           this.setRegister(Register.IP, address)
         }
 

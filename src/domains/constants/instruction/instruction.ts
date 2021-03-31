@@ -1,4 +1,4 @@
-export enum Instruction {
+enum Instruction {
   /** move literal value to register */
   MOV_LIT_REG = 0x10,
   /** move memory value to register */
@@ -12,3 +12,5 @@ export enum Instruction {
   /** jump if not equail */
   JMP_NOT_EQ = 0x15,
 }
+
+export default Instruction;

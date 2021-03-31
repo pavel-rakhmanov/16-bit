@@ -1,5 +1,4 @@
-import { Instruction } from 'domains/constants/instruction';
-import { Register } from 'domains/constants/register';
+import { Instruction, Register } from 'domains/constants';
 import { MemoryEntity } from 'domains/entities/memory.entity';
 import { CPUEntity } from 'domains/entities/cpu.entity';
 

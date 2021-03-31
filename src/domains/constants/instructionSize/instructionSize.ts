@@ -1,5 +1,4 @@
-export const InstructionSizeInBytes = 2;
+/** virtual machine instruction size (length) in bytes */
+const InstructionSize = 2;
 
-export const InstructionSizeInBits = InstructionSizeInBytes * 8;
-
-export const InstructionSize = InstructionSizeInBytes;
+export default InstructionSize;

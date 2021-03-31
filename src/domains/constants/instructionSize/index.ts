@@ -1,1 +1,1 @@
-export * from './instructionSize';
+export { default } from './instructionSize';

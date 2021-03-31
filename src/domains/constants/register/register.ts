@@ -1,4 +1,4 @@
-export enum Register {
+enum Register {
   IP = 0x00,
   ACC = 0x01,
   R1 = 0x02,
@@ -10,3 +10,5 @@ export enum Register {
   R7 = 0x08,
   R8 = 0x09,
 }
+
+export default Register;

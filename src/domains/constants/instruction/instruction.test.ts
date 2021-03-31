@@ -1,6 +1,6 @@
-import { InstructionSizeInBits } from '../instructionSize';
+import { InstructionSize } from 'domains/constants';
 
-import { Instruction } from './instruction';
+import Instruction from './instruction';
 
 const ENUM_VALUES = Object.values(Instruction);
 const NUMBER_ENUM_VALUES = ENUM_VALUES.reduce((acc: Instruction[], value) => {
@@ -16,10 +16,10 @@ describe('Instruction enum', () => {
     expect(NUMBER_ENUM_VALUES.length).toEqual(ENUM_VALUES.length / 2);
   });
 
-  test(`values should be a valid ${InstructionSizeInBits} bit numbers`, () => {
+  test(`values should be a valid ${InstructionSize} byte numbers`, () => {
     expect(
       NUMBER_ENUM_VALUES.every(
-        (num) => num >= 0 && num <= 2 ** InstructionSizeInBits
+        (num) => num >= 0 && num <= 2 ** (InstructionSize * 8)
       )
     ).toBe(true);
   });

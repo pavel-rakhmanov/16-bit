@@ -6,7 +6,11 @@
     "strict": true,
     "moduleResolution": "node",
     "lib": [],
-    "paths": {},
+    "paths": {
+      "src/*": ["./src/*"],
+      "domains/*": ["./src/domains/*"],
+      "utils/*": ["./src/utils/*"]
+    },
     "outDir": "./dist",
     "baseUrl": "./",
     "esModuleInterop": true,

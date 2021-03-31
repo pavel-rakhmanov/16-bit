@@ -1,12 +1,14 @@
-export enum Register {
-  InstructionPointer = 'ip',
-  Accumulator = 'acc',
-  R1 = 'r1',
-  R2 = 'r2',
-  R3 = 'r3',
-  R4 = 'r4',
-  R5 = 'r5',
-  R6 = 'r6',
-  R7 = 'r7',
-  R8 = 'r8',
+enum Register {
+  IP = 0x00,
+  ACC = 0x01,
+  R1 = 0x02,
+  R2 = 0x03,
+  R3 = 0x04,
+  R4 = 0x05,
+  R5 = 0x06,
+  R6 = 0x07,
+  R7 = 0x08,
+  R8 = 0x09,
 }
+
+export default Register;

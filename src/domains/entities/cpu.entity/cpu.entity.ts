@@ -1,11 +1,9 @@
 import { Register, Instruction, InstructionSize } from 'domains/constants';
-
+import { prettify16bitNumber } from 'utils/number';
 import { MemoryEntity } from 'domains/entities/memory.entity';
 
 export class CPUEntity {
-  constructor(private readonly _memory: MemoryEntity) {
-    this.memory = _memory;
-
+  constructor(private readonly memory: MemoryEntity) {
     this.registers = Object.values(Register).reduce(
       (acc: Register[], value) => {
         if (typeof value !== 'string') {
@@ -28,15 +26,13 @@ export class CPUEntity {
     }, new Map());
   }
 
-  private readonly memory: MemoryEntity;
-
   private readonly registers: Register[];
 
   private readonly registersMap: Map<Register, number>;
 
   private readonly registersMemory: MemoryEntity;
 
-  getRegister(register: Register): number {
+  public getRegister(register: Register): number {
     const registerIndexInMemory = this.registersMap.get(register);
 
     if (registerIndexInMemory === undefined) {
@@ -46,7 +42,7 @@ export class CPUEntity {
     return this.registersMemory.getUint16(registerIndexInMemory);
   }
 
-  setRegister(register: Register, value: number): void {
+  public setRegister(register: Register, value: number): void {
     const registerIndexInMemory = this.registersMap.get(register);
 
     if (registerIndexInMemory === undefined) {
@@ -135,13 +131,25 @@ export class CPUEntity {
     }
   }
 
-  private takeRegistersSnapshot(): { register: string; value: string }[] {
+  private takeRegistersSnapshot(): { register: string; value: number }[] {
     return this.registers.map((register) => ({
       register: Register[register],
-      value: `0x${this.getRegister(register)
-        .toString(InstructionSize * 8)
-        .padStart(4, '0')}`,
+      value: this.getRegister(register),
     }));
+  }
+
+  private printRegistersSnapshot(): void {
+    // eslint-disable-next-line no-console
+    console.log('┌────────────────────┐')
+    // eslint-disable-next-line no-console
+    console.log('| registers snapshot |')
+    // eslint-disable-next-line no-console
+    console.table(
+      this.takeRegistersSnapshot().reduce((acc: { [key: string]: string }, registerSnapshot) => ({
+        ...acc,
+        [registerSnapshot.register]: prettify16bitNumber(registerSnapshot.value)
+      }), {})
+    );
   }
 
   public step(): void {
@@ -155,19 +163,11 @@ export class CPUEntity {
       // eslint-disable-next-line no-console
       console.log(`meta: ${JSON.stringify(metaData)}`);
     }
-    // eslint-disable-next-line no-console
-    console.table(this.takeRegistersSnapshot());
+
+    this.printRegistersSnapshot();
   }
 
   public viewMemoryAt(address: number): void {
-    const next8Bytes = Array.from({ length: 8 }).map((_, index) => {
-      const value = this.memory.getUint8(address + index);
-      return `0x${value.toString(16).padStart(2, '0')}`;
-    });
-
-    // eslint-disable-next-line no-console
-    console.log(
-      `0x${address.toString(16).padStart(4, '0')}: ${next8Bytes.join(' ')}`
-    );
+    this.memory.printMemorySnapshot(address)
   }
 }

@@ -1,6 +1,5 @@
 import { Instruction, Register } from 'domains/constants';
-import { MemoryEntity } from 'domains/entities/memory.entity';
-import { CPUEntity } from 'domains/entities/cpu.entity';
+import { MemoryEntity, CPUEntity } from 'domains/entities';
 
 describe('CPU JMP_NOT_EQ instruction execution', () => {
   test('should jump IP to address when ACC value not equal with literal value', () => {

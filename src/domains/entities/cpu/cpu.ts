@@ -1,8 +1,8 @@
 import { Register, Instruction, InstructionSize } from 'domains/constants';
+import { MemoryEntity } from 'domains/entities';
 import { prettify16bitNumber } from 'utils/number';
-import { MemoryEntity } from 'domains/entities/memory.entity';
 
-export class CPUEntity {
+class CPUEntity {
   constructor(private readonly memory: MemoryEntity) {
     this.registers = Object.values(Register).reduce(
       (acc: Register[], value) => {
@@ -140,15 +140,20 @@ export class CPUEntity {
 
   private printRegistersSnapshot(): void {
     // eslint-disable-next-line no-console
-    console.log('┌────────────────────┐')
+    console.log('┌────────────────────┐');
     // eslint-disable-next-line no-console
-    console.log('| registers snapshot |')
+    console.log('| registers snapshot |');
     // eslint-disable-next-line no-console
     console.table(
-      this.takeRegistersSnapshot().reduce((acc: { [key: string]: string }, registerSnapshot) => ({
-        ...acc,
-        [registerSnapshot.register]: prettify16bitNumber(registerSnapshot.value)
-      }), {})
+      this.takeRegistersSnapshot().reduce(
+        (acc: { [key: string]: string }, registerSnapshot) => ({
+          ...acc,
+          [registerSnapshot.register]: prettify16bitNumber(
+            registerSnapshot.value
+          ),
+        }),
+        {}
+      )
     );
   }
 
@@ -168,6 +173,8 @@ export class CPUEntity {
   }
 
   public viewMemoryAt(address: number): void {
-    this.memory.printMemorySnapshot(address)
+    this.memory.printMemorySnapshot(address);
   }
 }
+
+export default CPUEntity;

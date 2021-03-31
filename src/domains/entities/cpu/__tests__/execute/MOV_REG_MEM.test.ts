@@ -1,6 +1,5 @@
 import { Instruction, Register } from 'domains/constants';
-import { MemoryEntity } from 'domains/entities/memory.entity';
-import { CPUEntity } from 'domains/entities/cpu.entity';
+import { MemoryEntity, CPUEntity } from 'domains/entities';
 
 const MEMORY = new MemoryEntity(8);
 const WRITABLE_BYTES = new Uint8Array(MEMORY.buffer);

@@ -1,4 +1,4 @@
-import { MemoryEntity } from './memory.entity';
+import MemoryEntity from './memory';
 
 describe('Memory entity', () => {
   test('Init memory based on passed size', () => {

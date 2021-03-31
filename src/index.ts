@@ -1,12 +1,12 @@
 import { Register } from 'domains/constants';
-import { CPUEntity } from 'domains/entities/cpu.entity';
+import { CPUEntity } from 'domains/entities';
 
-import propgramm from './programm';
+import program from './program';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const readline = require('readline');
 
-const cpu = new CPUEntity(propgramm);
+const cpu = new CPUEntity(program);
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -14,12 +14,12 @@ const rl = readline.createInterface({
 });
 
 cpu.debug();
-cpu.viewMemoryAt(cpu.getRegister(Register.IP));
-cpu.viewMemoryAt(0x0100);
+program.printMemorySnapshot(cpu.getRegister(Register.IP));
+program.printMemorySnapshot(0x0100);
 
 rl.on('line', () => {
   cpu.step();
   cpu.debug();
-  cpu.viewMemoryAt(cpu.getRegister(Register.IP));
-  cpu.viewMemoryAt(0x0100);
+  program.printMemorySnapshot(cpu.getRegister(Register.IP));
+  program.printMemorySnapshot(0x0100);
 });

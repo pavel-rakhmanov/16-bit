@@ -1,4 +1,4 @@
-import { prettify16bitNumber, prettify8bitNumber } from 'src/utils/number';
+import { prettify16bitNumber, prettify8bitNumber } from 'utils/number';
 
 class MemoryEntity {
   constructor(private readonly _sizeInBytes: number) {

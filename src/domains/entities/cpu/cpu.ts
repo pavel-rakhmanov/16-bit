@@ -1,5 +1,5 @@
 import { Register, Instruction, InstructionSize } from 'domains/constants';
-import { MemoryEntity } from 'domains/entities';
+import MemoryEntity from 'domains/entities/memory';
 import { prettify16bitNumber } from 'utils/number';
 
 class CPUEntity {

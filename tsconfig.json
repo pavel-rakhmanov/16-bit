@@ -5,7 +5,6 @@
     "outDir": "./dist",
 
     "paths": {
-      "src/*": ["./src/*"],
       "domains/*": ["./src/domains/*"],
       "utils/*": ["./src/utils/*"]
     },

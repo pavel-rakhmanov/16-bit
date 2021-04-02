@@ -9,7 +9,6 @@
     "prepare": "husky install",
     "prebuild": "rimraf dist",
     "build": "rollup --config ./rollup.config.js",
-    "build:watch": "npm run build -- --watch",
     "build:run": "npm run build && node ./dist",
     "test": "jest --config ./.jestrc.json",
     "test:watch": "npm run test -- --watch",

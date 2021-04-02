@@ -13,7 +13,7 @@
     "test": "jest --config ./.jestrc.json",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
-    "eslint": "eslint --config .eslintrc.js ./",
+    "eslint": "eslint --config .eslintrc ./",
     "eslint:fix": "npm run eslint -- --fix",
     "prettier": "prettier --config .prettierrc --ignore-unknown ./",
     "prettier:fix": "npm run prettier -- --write",

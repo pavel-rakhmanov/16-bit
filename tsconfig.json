@@ -1,18 +1,20 @@
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
-    "strict": true,
-    "moduleResolution": "node",
-    "lib": [],
+    "rootDir": "./src",
+    "outDir": "./dist",
+
     "paths": {
       "src/*": ["./src/*"],
       "domains/*": ["./src/domains/*"],
       "utils/*": ["./src/utils/*"]
     },
-    "outDir": "./dist",
-    "baseUrl": "./",
+    
+    "lib": [],
+    "moduleResolution": "node",
+    
+    "strict": true,
+    "sourceMap": true,
     "esModuleInterop": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

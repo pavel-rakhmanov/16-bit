@@ -1,5 +1,4 @@
-/dist
-/coverage
-/node_modules
-
-.eslintrc.js
+.coverage
+.vscode
+dist
+node_modules

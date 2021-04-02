@@ -1,8 +1,9 @@
-/dist
-/coverage
-/node_modules
-/package-lock.json
-/.vscode
+.coverage
+.vscode
+dist
+node_modules
+
+package-lock.json
 
 .env.local
 .env.*.local

@@ -1,4 +1,4 @@
 /** virtual machine instruction size (length) in bytes */
-const InstructionSize = 2;
+const InstructionSize = 1;
 
 export default InstructionSize;

@@ -13,7 +13,7 @@ WRITABLE_BYTES[(i += 1)] = 0x04;
 
 const CPU = new CPUEntity(MEMORY);
 
-CPU.setRegister(Register.R1, 0x0100);
+CPU.setRegisterValue(Register.R1, 0x0100);
 CPU.step();
 
 describe('CPU MOV_REG_MEM instruction execution', () => {

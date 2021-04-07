@@ -5,7 +5,7 @@ describe('InstructionSize constant', () => {
     expect(InstructionSize).toBeDefined();
   });
 
-  test('should be 2 for 16 bit command', () => {
-    expect(InstructionSize).toEqual(2);
+  test('should be equal to 1', () => {
+    expect(InstructionSize).toEqual(1);
   });
 });

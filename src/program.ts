@@ -16,7 +16,7 @@ writableBytes[(i += 1)] = 0x00;
 writableBytes[(i += 1)] = 0x01;
 writableBytes[(i += 1)] = Register.R2;
 
-writableBytes[(i += 1)] = Instruction.ADD_REG_REG;
+writableBytes[(i += 1)] = Instruction.MOV_REG_REG;
 writableBytes[(i += 1)] = Register.R1;
 writableBytes[(i += 1)] = Register.R2;
 

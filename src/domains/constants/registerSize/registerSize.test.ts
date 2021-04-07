@@ -5,7 +5,7 @@ describe('RegisterSize constant', () => {
     expect(RegisterSize).toBeDefined();
   });
 
-  test('should be 1 for 8 bit registers', () => {
+  test('should be equal to 1', () => {
     expect(RegisterSize).toEqual(1);
   });
 });

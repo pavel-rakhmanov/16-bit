@@ -17,6 +17,6 @@ CPU.step();
 
 describe('CPU MOV_LIT_REG instruction execution', () => {
   test('literal value should be moved to register', () => {
-    expect(CPU.getRegister(Register.R1)).toEqual(0x0100);
+    expect(CPU.getRegisterValue(Register.R1)).toEqual(0x0100);
   });
 });

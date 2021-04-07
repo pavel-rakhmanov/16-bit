@@ -12,12 +12,12 @@ WRITABLE_BYTES[(i += 1)] = Register.R2;
 
 const CPU = new CPUEntity(MEMORY);
 
-CPU.setRegister(Register.R1, 0x0100);
-CPU.setRegister(Register.R2, 0x0100);
+CPU.setRegisterValue(Register.R1, 0x0100);
+CPU.setRegisterValue(Register.R2, 0x0100);
 CPU.step();
 
 describe('CPU ADD_REG_REG instruction execution', () => {
   test('registers value should be summed up in ACC register', () => {
-    expect(CPU.getRegister(Register.ACC)).toEqual(0x0200);
+    expect(CPU.getRegisterValue(Register.ACC)).toEqual(0x0200);
   });
 });

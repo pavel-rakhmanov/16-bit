@@ -19,6 +19,6 @@ CPU.step();
 
 describe('CPU MOV_MEM_REG instruction execution', () => {
   test('memory value should be moved to register', () => {
-    expect(CPU.getRegister(Register.R1)).toEqual(0x0100);
+    expect(CPU.getRegisterValue(Register.R1)).toEqual(0x0100);
   });
 });

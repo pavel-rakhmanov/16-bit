@@ -1,20 +1,14 @@
 import { RegisterSize } from 'domains/constants';
+import { getEnumNumberValues } from 'utils/enum';
 
 import Register from './register';
 
-const ENUM_VALUES = Object.values(Register);
-const NUMBER_ENUM_VALUES = ENUM_VALUES.reduce((acc: Register[], value) => {
-  if (Number(value)) {
-    acc.push(Number(value));
-  }
-
-  return acc;
-}, []);
+const NUMBER_ENUM_VALUES = getEnumNumberValues(Object.values(Register));
 
 describe('Register enum', () => {
   test('should be defined', () => {
     expect(Register).toBeDefined();
-    expect(Object.values(Register).length).toBeGreaterThan(0);
+    expect(NUMBER_ENUM_VALUES.length).toBeGreaterThan(0);
   });
 
   test(`values should be a valid ${RegisterSize} byte numbers`, () => {

@@ -14,12 +14,12 @@ const rl = readline.createInterface({
 });
 
 cpu.debug();
-program.printMemorySnapshot(cpu.getRegister(Register.IP));
+program.printMemorySnapshot(cpu.getRegisterValue(Register.IP));
 program.printMemorySnapshot(0x0100);
 
 rl.on('line', () => {
   cpu.step();
   cpu.debug();
-  program.printMemorySnapshot(cpu.getRegister(Register.IP));
+  program.printMemorySnapshot(cpu.getRegisterValue(Register.IP));
   program.printMemorySnapshot(0x0100);
 });

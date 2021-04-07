@@ -16,10 +16,10 @@ describe('CPU JMP_NOT_EQ instruction execution', () => {
 
     const CPU = new CPUEntity(memory);
 
-    CPU.setRegister(Register.ACC, 0x0100);
+    CPU.setRegisterValue(Register.ACC, 0x0100);
     CPU.step();
 
-    expect(CPU.getRegister(Register.IP)).toEqual(0x0008);
+    expect(CPU.getRegisterValue(Register.IP)).toEqual(0x0008);
   });
 
   test('should not jump IP to address when ACC equal with literal value', () => {
@@ -36,9 +36,9 @@ describe('CPU JMP_NOT_EQ instruction execution', () => {
 
     const CPU = new CPUEntity(memory);
 
-    CPU.setRegister(Register.ACC, 0x0100);
+    CPU.setRegisterValue(Register.ACC, 0x0100);
     CPU.step();
 
-    expect(CPU.getRegister(Register.IP)).toEqual(0x0005);
+    expect(CPU.getRegisterValue(Register.IP)).toEqual(0x0005);
   });
 });

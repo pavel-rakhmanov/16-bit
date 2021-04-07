@@ -12,11 +12,11 @@ WRITABLE_BYTES[(i += 1)] = Register.R2;
 
 const CPU = new CPUEntity(MEMORY);
 
-CPU.setRegister(Register.R1, 0x0100);
+CPU.setRegisterValue(Register.R1, 0x0100);
 CPU.step();
 
 describe('CPU MOV_REG_REG instruction execution', () => {
   test('register value should be moved to register', () => {
-    expect(CPU.getRegister(Register.R2)).toEqual(0x0100);
+    expect(CPU.getRegisterValue(Register.R2)).toEqual(0x0100);
   });
 });

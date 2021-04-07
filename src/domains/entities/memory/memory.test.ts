@@ -7,7 +7,7 @@ describe('Memory entity', () => {
     expect(
       memorySizes.every(
         (memorySize) =>
-          new MemoryEntity(memorySize).view.byteLength === memorySize
+          new MemoryEntity(memorySize).byteLength === memorySize
       )
     ).toBe(true);
   });
